@@ -1,7 +1,8 @@
 {
   "name": "nodejs-chat",
   "scripts": {
-  },
+    "start" : "node app.js"
+ },
   "env": {
     "BUILDPACK_URL": {
       "required": true
