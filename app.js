@@ -1,7 +1,7 @@
-var http = require('http');
-var socketIO = require('socket.io');
-var port = process.env.PORT || 8080;
-var server = http.createServer().listen(port),
+var http = require('http'),
+socketIO = require('socket.io'),
+port = process.env.PORT || 80,
+server = http.createServer().listen(port),
 io = socketIO.listen(server);
 io.set('match origin protocol', true);
 io.set('origins', '*:*');
@@ -15,7 +15,7 @@ const headerstring ={
 	'Pragma':'no-cache',
 	'Upgrade-Insecure-Requests':1,
 	'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
-};
+}
 var run = function(socket){
 	// Socket process here!!!
 	socket.emit('greeting', 'Hello from Socket.IO');
