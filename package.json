@@ -16,6 +16,7 @@
   "addons": [
     "heroku-postgresql"
   ],
+  "dependencies": { "express": "~4.10.2", "socket.io": "1.2.0", },
   "buildpacks": [
     {
       "url": "https://github.com/heroku/heroku-buildpack-nodejs"
