@@ -1,18 +1,19 @@
 var http = require('http'),
 socketIO = require('socket.io'),
-port = process.env.PORT || 8080,
-server = http.createServer().listen(port),
-io = socketIO.listen(server);
-io.set('match origin protocol', true);
-io.set('origins', '*:*');
-io.set('log level', 1);
+port = process.env.PORT || 8080;
 http.createServer(function (req, res) {
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('Hello World!');
 }).listen(port);
 
+var server = http.createServer().listen(port),
+io = socketIO.listen(server);
+io.set('match origin protocol', true);
+io.set('origins', '*:*');
+io.set('log level', 1);
+
 const request = require('request');
-const headerstring ={
+const headerstring = {
 	'charset':'utf-8',
 	'Cache-Control':'no-cache',
 	'Connection':'keep-alive',
@@ -20,7 +21,7 @@ const headerstring ={
 	'Pragma':'no-cache',
 	'Upgrade-Insecure-Requests':1,
 	'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
-}
+};
 var run = function(socket){
 	// Socket process here!!!
 	socket.emit('greeting', 'Hello from Socket.IO');
@@ -32,7 +33,7 @@ var run = function(socket){
 		request.post({
 			url :'http://khotracnghiem.com/autobid/getTask-4-nodejs.php?key=binmaocom',
 			headers : headerstring,
-			formData :data
+			formData : data
 		},function(error,response,body) {
 			if(!error && response.statusCode==200) {
 				// console.log(body);
@@ -44,8 +45,7 @@ var run = function(socket){
 				console.log('error')
 				// console.log(response)
 			}
-		})
-		
+		});		
 	});
-}
+};
 io.sockets.on('connection', run);
