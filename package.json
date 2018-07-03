@@ -1,0 +1,18 @@
+{
+  "name": "autobid-nodejs",
+  "version": "1.0.0",
+  "description": "autobid-nodejs",
+  "main": "app.js",
+  "engines": {
+    "node": ">=6.2.0"
+  },
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "binmaocom",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3",
+    "nodemon": "^1.11.0"
+  }
+}
