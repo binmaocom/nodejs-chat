@@ -11,5 +11,3 @@ io = socketIO.listen(server);
 io.set('match origin protocol', true);
 io.set('origins', '*:*');
 io.set('log level', 1);
-
-const request = require('request');
