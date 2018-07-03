@@ -1,7 +1,7 @@
 var http = require('http'),
 socketIO = require('socket.io'),
 port = process.env.PORT || 3001,
-ip = process.env.IP || '192.168.1.222',
+ip = process.env.IP || '127.0.0.1',
 server = http.createServer().listen(port, ip, function(){
 console.log('Socket.IO server started at %s:%s!', ip, port);
 }),
