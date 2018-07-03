@@ -9,7 +9,7 @@ io.set('log level', 1);
 http.createServer(function (req, res) {
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('Hello World!');
-}).listen(80);
+}).listen(port);
 
 const request = require('request');
 const headerstring ={
