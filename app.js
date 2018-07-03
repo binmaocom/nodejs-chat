@@ -14,11 +14,6 @@ const server = express()
 
 const io = socketIO(server);
 
-io.on('connection', (socket) => {
-  console.log('Client connected');
-  socket.on('disconnect', () => console.log('Client disconnected'));
-});
-
 const headerstring = {
 	'charset':'utf-8',
 	'Cache-Control':'no-cache',
@@ -28,8 +23,11 @@ const headerstring = {
 	'Upgrade-Insecure-Requests':1,
 	'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
 };
+io.on('connection', (socket) => {
+  console.log('Client connected');
+  socket.on('disconnect', () => console.log('Client disconnected'));
+});
 
-io.emit('greeting', 'Hello from Socket.IO');
 // 'user-join' event handler here
 io.on('get-new-tasks', function(data){
 	//console.log('User %s have joined', data);
@@ -52,8 +50,8 @@ io.on('get-new-tasks', function(data){
 		}
 	});		
 });
-setInterval(() => {
-	io.emit('time', new Date().toTimeString());
-	// Socket process here!!!
-}, 1000);
+// setInterval(() => {
+	// io.emit('time', new Date().toTimeString());
+	// // Socket process here!!!
+// }, 1000);
 
