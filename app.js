@@ -1,10 +1,10 @@
 // var http = require('http');
 // var port = process.env.PORT || 8080;
-var http = require('http'),
-socketIO = require('socket.io'),
-port = process.env.PORT || 8080,
-ip = process.env.IP || '127.0.0.1',
-server = http.createServer().listen(port, ip, function(){
+var http = require('http');
+var socketIO = require('socket.io');
+var port = process.env.PORT || 8080;
+var ip = process.env.IP || '127.0.0.1';
+var server = http.createServer().listen(port, ip, function(){
 	res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('Hello World!');
 });
