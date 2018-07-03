@@ -2,10 +2,10 @@ var http = require('http'),
 request = require('request'),
 socketIO = require('socket.io'),
 port = process.env.PORT || 8080;
-http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Hello World!');
-}).listen(8081);
+// http.createServer(function (req, res) {
+    // res.writeHead(200, {'Content-Type': 'text/plain'});
+    // res.end('Hello World!');
+// }).listen(8081);
 
 var server = http.createServer().listen(port),
 io = socketIO.listen(server);
