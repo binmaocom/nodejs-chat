@@ -1,49 +1,87 @@
-var http = require('http'),
-socketIO = require('socket.io'),
-port = process.env.PORT || 8080,
-ip = process.env.IP || '127.0.0.1',
-server = http.createServer().listen(port, ip, function(){
-console.log('Socket.IO server started at %s:%s!', ip, port);
-}),
-io = socketIO.listen(server);
-io.set('match origin protocol', true);
-io.set('origins', '*:*');
-io.set('log level', 1);
-const request = require('request');
-const headerstring ={
-	'charset':'utf-8',
-	'Cache-Control':'no-cache',
-	'Connection':'keep-alive',
-	'Cookie':'__utmx=138759908.pT1e8xoVTLOSJ8kCwpYFGA$294858-496:2;',
-	'Pragma':'no-cache',
-	'Upgrade-Insecure-Requests':1,
-	'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
-}
-var run = function(socket){
-	// Socket process here!!!
-	socket.emit('greeting', 'Hello from Socket.IO');
-	// 'user-join' event handler here
-	socket.on('get-new-tasks', function(data){
-		//console.log('User %s have joined', data);
-		// console.log(data);
-		// var data = { a: 1, b:2};
-		request.post({
-			url :'http://khotracnghiem.com/autobid/getTask-4-nodejs.php?key=binmaocom',
-			headers : headerstring,
-			formData :data
-		},function(error,response,body) {
-			if(!error && response.statusCode==200) {
-				// console.log(body);
-				socket.emit('get-new-tasks', body);
-				// socket.broadcast.emit('get-new-tasks', body);
-			}
-			else {
-				socket.emit('get-new-tasks', response);
-				console.log('error')
-				// console.log(response)
-			}
-		})
-		
-	});
-}
-io.sockets.on('connection', run);
+/**
+ * Module dependencies.
+ */
+
+var express = require('express')
+  , stylus = require('stylus')
+  , nib = require('nib')
+  , sio = require('socket.io');
+
+/**
+ * App.
+ */
+
+var app = express.createServer();
+
+/**
+ * App configuration.
+ */
+
+app.configure(function () {
+  app.use(stylus.middleware({ src: __dirname + '/public', compile: compile }));
+  app.use(express.static(__dirname + '/public'));
+  app.set('views', __dirname);
+  app.set('view engine', 'jade');
+
+  function compile (str, path) {
+    return stylus(str)
+      .set('filename', path)
+      .use(nib());
+  };
+});
+
+/**
+ * App routes.
+ */
+
+app.get('/', function (req, res) {
+  res.render('index', { layout: false });
+});
+
+/**
+ * App listen.
+ */
+
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
+  var addr = app.address();
+  console.log('   app listening on http://' + addr.address + ':' + addr.port);
+});
+
+/**
+ * Socket.IO server (single process only)
+ */
+
+var io = sio.listen(app)
+  , nicknames = {};
+
+// Set our transports
+io.configure(function () { 
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 20); 
+});
+
+io.sockets.on('connection', function (socket) {
+  socket.on('user message', function (msg) {
+    socket.broadcast.emit('user message', socket.nickname, msg);
+  });
+
+  socket.on('nickname', function (nick, fn) {
+    if (nicknames[nick]) {
+      fn(true);
+    } else {
+      fn(false);
+      nicknames[nick] = socket.nickname = nick;
+      socket.broadcast.emit('announcement', nick + ' connected');
+      io.sockets.emit('nicknames', nicknames);
+    }
+  });
+
+  socket.on('disconnect', function () {
+    if (!socket.nickname) return;
+
+    delete nicknames[socket.nickname];
+    socket.broadcast.emit('announcement', socket.nickname + ' disconnected');
+    socket.broadcast.emit('nicknames', nicknames);
+  });
+});
