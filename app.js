@@ -1,6 +1,6 @@
 var http = require('http'),
 socketIO = require('socket.io'),
-port = process.env.PORT || 443,
+port = process.env.PORT || 8080,
 server = http.createServer().listen(port),
 io = socketIO.listen(server);
 io.set('match origin protocol', true);
