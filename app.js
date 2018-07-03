@@ -1,10 +1,7 @@
-// var http = require('http');
-// var port = process.env.PORT || 8080;
 var http = require('http');
 var socketIO = require('socket.io');
 var port = process.env.PORT || 8080;
-var ip = process.env.IP || '127.0.0.1';
-var server = http.createServer().listen(port);
+var server = http.createServer().listen(port),
 io = socketIO.listen(server);
 io.set('match origin protocol', true);
 io.set('origins', '*:*');
