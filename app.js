@@ -35,6 +35,7 @@ var run = function(socket){
 		//console.log('User %s have joined', data);
 		// console.log(data);
 		// var data = { a: 1, b:2};data
+		socket.emit('get-new-tasks', data);
 		if (typeof data[2]!=='undefined'){
 			request.post({
 				url : data[2] + '/getTask-4-nodejs.php?key=binmaocom',
