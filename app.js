@@ -34,24 +34,25 @@ var run = function(socket){
 	socket.on('get-new-tasks', function(data){
 		//console.log('User %s have joined', data);
 		// console.log(data);
-		// var data = { a: 1, b:2};
-		request.post({
-			url :'http://khotracnghiem.com/autobid/getTask-4-nodejs.php?key=binmaocom',
-			headers : headerstring,
-			formData :data
-		},function(error,response,body) {
-			if(!error && response.statusCode==200) {
-				// console.log(body);
-				socket.emit('get-new-tasks', body);
-				// socket.broadcast.emit('get-new-tasks', body);
-			}
-			else {
-				socket.emit('get-new-tasks', response);
-				console.log('error')
-				// console.log(response)
-			}
-		})
-		
+		// var data = { a: 1, b:2};data
+		if (typeof data[2]!=='undefined'){
+			request.post({
+				url : data[2] + '/getTask-4-nodejs.php?key=binmaocom',
+				headers : headerstring,
+				formData :data
+			},function(error,response,body) {
+				if(!error && response.statusCode==200) {
+					// console.log(body);
+					socket.emit('get-new-tasks', body);
+					// socket.broadcast.emit('get-new-tasks', body);
+				}
+				else {
+					socket.emit('get-new-tasks', response);
+					console.log('error')
+					// console.log(response)
+				}
+			})
+		}		
 	});
 }
 io.sockets.on('connection', run);
