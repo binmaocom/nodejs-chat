@@ -30,10 +30,10 @@ const headerstring = {
 var run = function(socket){
 	// Socket process here!!!
 	socket.emit('greeting', 'Hello from Socket.IO');
-	socket(socket.id).emit('update_socket_id', socket.id);
+	socket.broadcast.to(socket.id).emit('update_socket_id', socket.id);
 	socket.on('send_to_socket_id', function(data){
 		if (typeof data[1]!=='undefined'){
-			socket(data[1]).emit('send_to_socket_id', data);	
+			socket.broadcast.to(data[1]).emit('send_to_socket_id', data);	
 		}
 	});
 	
