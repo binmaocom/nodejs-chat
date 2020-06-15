@@ -33,8 +33,8 @@ var run = function(socket){
 	//socket.broadcast.to(socket.id).emit('update_socket_id', socket.id);
 	socket.emit('update_socket_id', socket.id);
 	socket.on('send_to_socket_id', function(data){
-		if (typeof data[1]!=='undefined'){
-			socket.broadcast.to(data[1]).emit('send_to_socket_id', data);	
+		if (typeof data[0]!=='undefined'){
+			socket.broadcast.to(data[0]).emit('send_to_socket_id', data);	
 		}
 	});
 	socket.on('call_from_clients', function(data){
