@@ -37,7 +37,9 @@ var run = function(socket){
 			socket.broadcast.to(data[1]).emit('send_to_socket_id', data);	
 		}
 	});
-	
+	socket.on('call_from_clients', function(data){
+		socket.broadcast.emit('call_from_clients', data);	
+	});
 	// 'user-join' event handler here
 	socket.on('get-new-tasks', function(data){
 		//console.log('User %s have joined', data);
