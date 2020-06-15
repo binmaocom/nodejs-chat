@@ -37,6 +37,9 @@ var run = function(socket){
 			socket.broadcast.to(data[0]).emit('send_to_socket_id', data);	
 		}
 	});
+	socket.on('set_fixed_socket_id', function(data){
+		socket.id = data;	
+	});
 	socket.on('call_from_clients', function(data){
 		socket.broadcast.emit('call_from_clients', data);	
 	});
