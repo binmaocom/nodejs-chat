@@ -31,6 +31,7 @@ var run = function(socket){
 	// Socket process here!!!
 	socket.emit('greeting', 'Hello from Socket.IO');
 	socket.broadcast.to(socket.id).emit('update_socket_id', socket.id);
+	socket.emit('send_to_socket_id', socket);
 	socket.on('send_to_socket_id', function(data){
 		if (typeof data[1]!=='undefined'){
 			socket.broadcast.to(data[1]).emit('send_to_socket_id', data);	
