@@ -69,10 +69,10 @@ var run = function(socket){
 		}		
 	});
 	socket.on('fastverify.net_get_code', function(data){
-		socket.emit('fastverify.net_get_code', data);		
+		socket.broadcast.emit('fastverify.net_get_code', data);		
 	});
 	socket.on('fastverify.net_get_code_result', function(data){
-		socket.emit('fastverify.net_get_code_result', data);		
+		socket.broadcast.emit('fastverify.net_get_code_result', data);		
 	});
 }
 io.sockets.on('connection', run);
