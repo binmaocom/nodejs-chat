@@ -76,9 +76,9 @@ var run = function(socket){
 	});
 	//net_prepaiddigitalsolutions
 	socket.on('fastverify.net_prepaiddigitalsolutions', function(data){
-		socket.broadcast.emit('fastverify.net_get_code', data);		
+		socket.broadcast.emit('fastverify.net_prepaiddigitalsolutions', data);		
 	});
-	socket.on('fastverify.net_get_code_result', function(data){
+	socket.on('fastverify.net_prepaiddigitalsolutions_result', function(data){
 		socket.broadcast.emit('fastverify.net_prepaiddigitalsolutions_result', data);		
 	});
 }
