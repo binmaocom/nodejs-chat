@@ -81,6 +81,13 @@ var run = function(socket){
 	socket.on('fastverify.net_prepaiddigitalsolutions_result', function(data){
 		socket.broadcast.emit('fastverify.net_prepaiddigitalsolutions_result', data);		
 	});
+	//net_flutterwave
+	socket.on('fastverify.net_flutterwave', function(data){
+		socket.broadcast.emit('fastverify.net_flutterwave', data);		
+	});
+	socket.on('fastverify.net_flutterwave_result', function(data){
+		socket.broadcast.emit('fastverify.net_flutterwave_result', data);		
+	});
 }
 io.sockets.on('connection', run);
 // 'user-join' event handler here
