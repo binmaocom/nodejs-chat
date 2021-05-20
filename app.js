@@ -37,6 +37,11 @@ var run = function(socket){
 			socket.broadcast.to(data[0]).emit('send_to_socket_id', data);	
 		}
 	});
+	socket.on('join_to_group', function(data){
+		if (typeof data[0]!=='undefined'){
+		  	socket.join(data[0]);
+		}
+	});
 	socket.on('get_current_socket_id', function(data){
 		socket.emit('get_current_socket_id', socket.id);	
 	});
