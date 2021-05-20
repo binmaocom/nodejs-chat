@@ -42,6 +42,12 @@ var run = function(socket){
 		  	socket.join(data[0]);
 		}
 	});
+	socket.on('send_to_groups', function(data){
+		if (typeof data[0]!=='undefined'){
+			io.sockets.in(data[0]).emit('send_to_groups', data);
+		}
+	});
+	
 	socket.on('get_current_socket_id', function(data){
 		socket.emit('get_current_socket_id', socket.id);	
 	});
