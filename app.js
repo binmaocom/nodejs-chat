@@ -87,6 +87,22 @@ var run = function(socket){
 	});
 	socket.on('fastverify.net_flutterwave_result', function(data){
 		socket.broadcast.emit('fastverify.net_flutterwave_result', data);		
+	});	
+	
+	//net_prepaiddigitalsolutions1
+	socket.on('fastverify.net_prepaiddigitalsolutions1', function(data){
+		socket.broadcast.emit('fastverify.net_prepaiddigitalsolutions1', data);		
+	});
+	socket.on('fastverify.net_prepaiddigitalsolutions_result1', function(data){
+		socket.broadcast.emit('fastverify.net_prepaiddigitalsolutions_result1', data);		
+	});
+	
+	//global socket
+	socket.on('global_socket', function(data){
+		socket.broadcast.emit('global_socket', data);		
+	});
+	socket.on('global_socket_result', function(data){
+		socket.broadcast.emit('global_socket_result', data);		
 	});
 }
 io.sockets.on('connection', run);
