@@ -30,6 +30,15 @@ const headerstring = {
 var run = function(socket){
 	// Socket process here!!!
 	socket.emit('greeting', 'Hello from Socket.IO');
+	socket.on('joinRoom', function (roomName) {
+	    socket.join(roomName, function () {
+	      console.log('joined ' + roomName); // logs properly
+	      socket.on('SendMessageToRoomName', function (inputUrl) {
+		console.log('SendMessageToRoomName: ', inputUrl); // not hitting here
+		io.sockets.in(roomName).emit('SendMessageToRoomName', inputUrl); // broadcast instead
+	      });
+	    });
+  	});
 	//socket.broadcast.to(socket.id).emit('update_socket_id', socket.id);
 	socket.emit('update_socket_id', socket.id);
 	socket.on('send_to_socket_id', function(data){
