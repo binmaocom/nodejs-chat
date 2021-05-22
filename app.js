@@ -53,7 +53,8 @@ var run = function(socket){
 	});
 	socket.on('send_to_groups', function(data){
 		if (typeof data[0]!=='undefined'){
-			io.sockets.in(data[0]).emit('send_to_groups', data);
+			socket.to(data[0]).emit('send_to_groups', data);
+			//io.sockets.in(data[0]).emit('send_to_groups', data);
 		}
 	});
 	
